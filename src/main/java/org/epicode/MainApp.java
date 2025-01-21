@@ -53,6 +53,32 @@ public class MainApp {
             // Commit della transazione (invio dei comandi al database)
             em.getTransaction().commit();
 
+            System.out.println("Persona creata con ID: " + mariaGiovanna.getId());
+
+            // Recupero di una persona per ID
+            Long personaId = mariaGiovanna.getId(); // Usare l'ID generato
+            em.getTransaction().begin();
+            Persona personaRecuperata = em.find(Persona.class, personaId);
+            em.getTransaction().commit();
+
+            if (personaRecuperata != null) {
+                System.out.println("Persona trovata: " + personaRecuperata.getNome() + " " + personaRecuperata.getCognome());
+            } else {
+                System.out.println("Persona con ID " + personaId + " non trovata.");
+            }
+
+            // Eliminazione di una persona per ID
+            em.getTransaction().begin();
+            Persona personaDaEliminare = em.find(Persona.class, personaId);
+            if (personaDaEliminare != null) {
+                em.remove(personaDaEliminare);
+                System.out.println("Persona con ID " + personaId + " eliminata.");
+            } else {
+                System.out.println("Persona con ID " + personaId + " non trovata per l'eliminazione.");
+            }
+            em.getTransaction().commit();
+
+
         } catch (Exception e) {
             // Gestione degli errori
             if (em.getTransaction().isActive()) {

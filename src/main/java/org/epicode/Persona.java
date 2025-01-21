@@ -57,6 +57,15 @@ public class Persona {
     }
 
     /**
+     * Ottiene l id della persona
+     *
+     * @return Id della persona
+     */
+    public Long getId() {
+        return this.id;
+    }
+
+    /**
      * Ottiene il nome della persona.
      *
      * @return Nome della persona.

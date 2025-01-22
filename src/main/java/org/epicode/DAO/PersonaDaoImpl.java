@@ -59,8 +59,8 @@ public class PersonaDaoImpl implements PersonaDAO  {
         //try catch
         try {
             em.getTransaction().begin();
-            Persona persona = findById(id);
-            //Persona persona = em.find(Persona.class,id);
+            //Persona persona = findById(id);
+            Persona persona = em.find(Persona.class,id);
             if(persona!=null)
                 em.remove(persona);
             em.getTransaction().commit();

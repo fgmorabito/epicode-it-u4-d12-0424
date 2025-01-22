@@ -18,4 +18,20 @@ public class Telefono {
     //Colonna di unione nella tabella telefoni
     //in telefoni ho FK persona_id (Colonna della tabella)
     private Persona persona;
+
+
+    public Telefono() {
+
+    }
+    public Telefono(String num) {
+        this.numero = num;
+    }
+
+    public void setPersona(Persona persona) {
+        this.persona = persona;
+    }
+
+    public String getNumero() {
+        return this.numero;
+    }
 }

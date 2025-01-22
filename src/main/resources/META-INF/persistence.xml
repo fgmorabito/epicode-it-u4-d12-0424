@@ -1,7 +1,7 @@
 <persistence xmlns="https://jakarta.ee/xml/ns/persistence" version="3.1">
     <persistence-unit name="gestioneFormazionePU">
         <!--classi che saranno soggette a persistenza -->
-        <class>org.epicode.Persona</class>
+       <!-- <class>org.epicode.Persona</class> -->
         <!--configurazione della connessione al db-->
         <properties>
             <!--driver pg -->

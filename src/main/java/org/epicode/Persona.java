@@ -43,9 +43,8 @@ public class Persona {
     @JoinColumn(name="documento_id")    // ho la FK rispetto l'entità a cui mi collego
     private Documento documento;
 
-    @OneToMany
+    @OneToMany(mappedBy = "persona", cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
     private List<Telefono> telefoni = new ArrayList<>();
-
 
 
     /**
@@ -129,4 +128,14 @@ public class Persona {
     public void setDataNascita(LocalDate dataNascita) {
         this.dataNascita = dataNascita;
     }
+
+    public void addTelefono(Telefono telefono) {
+        telefoni.add(telefono);
+        telefono.setPersona(this);
+    }
+
+    public List<Telefono> getTelefoni() {
+        return telefoni;
+    }
+
 }

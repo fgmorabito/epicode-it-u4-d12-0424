@@ -61,6 +61,31 @@ public class MainApp {
         //caso 4: delete
         personaDAO.deleteById(2L);
 
+
+        //caso 5:
+        /*
+        * ho implementato le relazioni, provo a salvare una persona che ha più numeri di telefono
+        *
+        */
+
+        Persona niccolo = new Persona("Niccolò", "Albanese",LocalDate.of(1990,7,24));
+        niccolo.addTelefono(new Telefono("3280000000"));
+        niccolo.addTelefono(new Telefono("3350000000"));
+        //save, grazie alla relazione definita, salverà lo studente e i suoi telefoni
+        //"gestendo" le pk e fk
+        personaDAO.save(niccolo);
+
+        Persona personaTrovata = personaDAO.findById(niccolo.getId());
+        if (personaTrovata!= null) {
+            System.out.println("Persona trovata");
+            personaTrovata.getTelefoni().forEach( telefono ->
+                    System.out.println("Telefono : " + telefono.getNumero())
+            );
+        }
+
+
+
+
         // Creazione di un EntityManager per interagire con il database
         // EntityManager em = EntityManagerUtil.getEntityManager();
 

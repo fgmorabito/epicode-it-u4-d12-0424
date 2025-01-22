@@ -2,6 +2,8 @@ package org.epicode;
 
 import jakarta.persistence.*;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * La classe Persona rappresenta un'entità persistente mappata alla tabella "studenti" nel database.
@@ -36,6 +38,15 @@ public class Persona {
      */
     @Column(name = "data_nascita")
     private LocalDate dataNascita;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name="documento_id")    // ho la FK rispetto l'entità a cui mi collego
+    private Documento documento;
+
+    @OneToMany
+    private List<Telefono> telefoni = new ArrayList<>();
+
+
 
     /**
      * Costruttore di default necessario per JPA.

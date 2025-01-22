@@ -1,6 +1,9 @@
 package org.epicode;
 
 import jakarta.persistence.EntityManager;
+import org.epicode.DAO.PersonaDAO;
+import org.epicode.DAO.PersonaDaoImpl;
+
 import java.time.LocalDate;
 
 /**
@@ -31,8 +34,35 @@ public class MainApp {
      */
     public static void main(String[] args) {
 
+        Persona mario = new Persona("Mario", "Rossi", LocalDate.of(1982,10,04));
+
+        //Mi creo un'istanza di DAO
+        PersonaDAO personaDAO = new PersonaDaoImpl();
+
+        //caso 1 : debbo salvare una persona nel db
+
+        personaDAO.save(mario);
+        System.out.println("Persona salvata! ID: " + mario.getId());
+
+        //caso 2: update
+        mario.setCognome("Gialli");
+        personaDAO.save(mario);
+
+        //caso 3: find by id (PK)
+        Persona personaDaTrovare = personaDAO.findById(3L);
+        //scenario 1: ha trovato la persona
+        //scenario 2: non l ha trovata, quindi abbiamo NULL
+        if (personaDaTrovare !=null)
+            System.out.println("Persona trovata, nome: " +personaDaTrovare.getNome());
+        else {
+            System.out.println("Id non trovato");
+        }
+
+        //caso 4: delete
+        personaDAO.deleteById(2L);
+
         // Creazione di un EntityManager per interagire con il database
-        EntityManager em = EntityManagerUtil.getEntityManager();
+        // EntityManager em = EntityManagerUtil.getEntityManager();
 
         /*
          * Eseguiamo una transazione per:
@@ -40,7 +70,7 @@ public class MainApp {
          * - Salvarla nella tabella "studenti" del database "Formazione"
          */
 
-        try {
+        /*try {
             // Avvio di una nuova transazione
             em.getTransaction().begin();
 
@@ -57,8 +87,9 @@ public class MainApp {
 
             // Recupero di una persona per ID
             Long personaId = mariaGiovanna.getId(); // Usare l'ID generato
+
             em.getTransaction().begin();
-            Persona personaRecuperata = em.find(Persona.class, personaId);
+            Persona personaRecuperata = em.find(Persona.class, personaId);  //passo l id della persona da recuperare
             em.getTransaction().commit();
 
             if (personaRecuperata != null) {
@@ -71,7 +102,7 @@ public class MainApp {
             em.getTransaction().begin();
             Persona personaDaEliminare = em.find(Persona.class, personaId);
             if (personaDaEliminare != null) {
-                em.remove(personaDaEliminare);
+                em.remove(personaDaEliminare);  //elimina
                 System.out.println("Persona con ID " + personaId + " eliminata.");
             } else {
                 System.out.println("Persona con ID " + personaId + " non trovata per l'eliminazione.");
@@ -91,5 +122,7 @@ public class MainApp {
             // Chiusura dell'EntityManager per liberare le risorse
             em.close();
         }
+
+         */
     }
 }

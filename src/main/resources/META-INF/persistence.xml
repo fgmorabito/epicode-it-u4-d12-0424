@@ -2,7 +2,6 @@
     <persistence-unit name="gestioneFormazionePU">
         <!--classi che saranno soggette a persistenza -->
         <class>org.epicode.Persona</class>
-
         <!--configurazione della connessione al db-->
         <properties>
             <!--driver pg -->
